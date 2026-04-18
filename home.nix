@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixgl, polarbear, ... }:
 
 {
   home.username = "charles";
@@ -16,19 +16,183 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # pkgs.hello
+    pkgs.ghostty
+    pkgs.openssh
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.fira-code
+    pkgs.gemini-cli
+    pkgs.claude-code
+    pkgs.opencode
+    pkgs.wl-clipboard
+    pkgs.fastfetch
+    pkgs.rclone
+    pkgs.quickemu
+    pkgs.jq
+    nixgl.packages.x86_64-linux.nixGLIntel
+    polarbear.packages.x86_64-linux.nixvim
   ];
+
+  programs.gh.enable = true;
+
+  fonts.fontconfig.enable = true;
+
+  programs.carapace = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
+  programs.foot = {
+    enable = true;
+    settings = {
+      main = {
+        pad = "8x8";
+        selection-target = "both";
+      };
+      csd = {
+        size = 0;
+      };
+      security = {
+        osc52 = "enabled";
+      };
+      key-bindings = {
+        clipboard-copy = "Control+Shift+c XF86Copy";
+        clipboard-paste = "Control+Shift+v XF86Paste";
+        primary-paste = "Shift+Insert";
+      };
+    };
+  };
+
+  programs.zellij = {
+    enable = true;
+    settings = {
+      pane_frames = false;
+      theme = "default";
+      show_startup_tips = false;
+      default_layout = "default";
+    };
+  };
+
+  xdg.configFile."zellij/layouts/default.kdl".text = ''
+    layout {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        pane
+        pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+  '';
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # ".screenrc".source = dotfiles/screenrc;
+    ".local/share/applications/foot.desktop".text = ''
+      [Desktop Entry]
+      Name=Foot
+      Comment=A fast, lightweight Wayland terminal
+      Exec=/home/charles/.nix-profile/bin/foot
+      Icon=foot
+      Terminal=false
+      Type=Application
+      Categories=System;TerminalEmulator;
+    '';
   };
 
   home.sessionVariables = {
     # EDITOR = "emacs";
+    XKB_DEFAULT_LAYOUT = "us";
+    XKB_DEFAULT_MODEL = "pc105";
+    XKB_DEFAULT_RULES = "evdev";
+    XKB_CONFIG_ROOT = "${pkgs.xkeyboard_config}/share/X11/xkb";
+    TERMINFO_DIRS = "/usr/share/terminfo:/lib/terminfo:/home/charles/.nix-profile/share/terminfo";
+    DISPLAY = ":0";
+    WAYLAND_DISPLAY = "wayland-0";
+    GDK_BACKEND = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+    MOZ_ENABLE_WAYLAND = "1";
+    XMODIFIERS = "@im=none";
+  };
+
+  systemd.user.services.rclone-gdrive = {
+    Unit = {
+      Description = "rclone: Remote FUSE filesystem for Google Drive";
+      After = [ "network-online.target" ];
+      Wants = [ "network-online.target" ];
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+    Service = {
+      Type = "notify";
+      ExecStartPre = "/usr/bin/mkdir -p %h/gdrive";
+      ExecStart = "${pkgs.rclone}/bin/rclone mount gdrive: %h/gdrive --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-cache-max-age 24h --dir-cache-time 1h";
+      ExecStop = "/usr/bin/fusermount -u %h/gdrive";
+      Restart = "on-failure";
+      RestartSec = "10s";
+    };
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  nixpkgs.config.allowUnfree = true;
+
+  programs.fastfetch = {
+    enable = true;
+    settings = {
+      logo = {
+        source = "windows";
+      };
+      modules = [
+        "title"
+        "separator"
+        {
+          type = "os";
+          format = "Windows";
+        }
+        "shell"
+        "uptime"
+        "memory"
+        "break"
+        "colors"
+      ];
+    };
+  };
+
+  programs.nushell = {
+    enable = true;
+    configFile.text = ''
+      $env.config = {
+        show_banner: false
+      }
+
+      def --wrapped nvim [...rest] {
+        with-env { VIMINIT: "set keyprotocol= | let &term=&term" } {
+          ^nvim ...$rest
+        }
+      }
+
+      if $nu.is-interactive {
+          fastfetch
+      }
+    '';
+  };
+
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      nvim = "VIMINIT='set keyprotocol= | let &term=&term' nvim";
+    };
+    initExtra = ''
+      if [[ $- == *i* ]] && [[ $(ps -p $PPID -o comm=) != "nu" ]] && command -v nu >/dev/null; then
+        exec nu
+      fi
+    '';
+  };
 }
