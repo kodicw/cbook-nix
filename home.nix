@@ -1,8 +1,9 @@
 { config, pkgs, nixgl, polarbear, ... }:
 
 {
-  home.username = "charles";
-  home.homeDirectory = "/home/charles";
+  home.username = "kodicw";
+  home.homeDirectory = "/home/kodicw";
+
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -33,6 +34,16 @@
   ];
 
   programs.gh.enable = true;
+
+  programs.git = {
+    enable = true;
+    settings = {
+      user = {
+        name = "Kodi Walls";
+        email = "kodicw@gmail.com";
+      };
+    };
+  };
 
   fonts.fontconfig.enable = true;
 
@@ -96,7 +107,7 @@
       [Desktop Entry]
       Name=Foot
       Comment=A fast, lightweight Wayland terminal
-      Exec=/home/charles/.nix-profile/bin/foot
+      Exec=/home/kodicw/.nix-profile/bin/foot
       Icon=foot
       Terminal=false
       Type=Application
@@ -110,7 +121,7 @@
     XKB_DEFAULT_MODEL = "pc105";
     XKB_DEFAULT_RULES = "evdev";
     XKB_CONFIG_ROOT = "${pkgs.xkeyboard_config}/share/X11/xkb";
-    TERMINFO_DIRS = "/usr/share/terminfo:/lib/terminfo:/home/charles/.nix-profile/share/terminfo";
+    TERMINFO_DIRS = "/usr/share/terminfo:/lib/terminfo:/home/kodicw/.nix-profile/share/terminfo";
     DISPLAY = ":0";
     WAYLAND_DISPLAY = "wayland-0";
     GDK_BACKEND = "wayland";

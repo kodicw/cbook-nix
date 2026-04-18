@@ -12,7 +12,7 @@
   };
 
   outputs = { nixpkgs, home-manager, nixgl, polarbear, ... }: {
-    homeConfigurations."charles" = home-manager.lib.homeManagerConfiguration {
+   homeConfigurations."kodicw" = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages."x86_64-linux";
       extraSpecialArgs = { inherit nixgl polarbear; };
 
