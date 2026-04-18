@@ -29,11 +29,27 @@
     pkgs.rclone
     pkgs.quickemu
     pkgs.jq
+    pkgs.antigravity
+    pkgs.mcp-nixos
     nixgl.packages.x86_64-linux.nixGLIntel
     polarbear.packages.x86_64-linux.nixvim
   ];
 
   programs.gh.enable = true;
+
+  programs.opencode = {
+    enable = true;
+    enableMcpIntegration = true;
+  };
+
+  programs.mcp = {
+    enable = true;
+    servers = {
+      nixos = {
+        command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+      };
+    };
+  };
 
   programs.git = {
     enable = true;
@@ -113,6 +129,16 @@
       Type=Application
       Categories=System;TerminalEmulator;
     '';
+    ".local/share/applications/antigravity.desktop".text = ''
+      [Desktop Entry]
+      Name=Antigravity
+      Comment=Agentic development platform
+      Exec=nixGLIntel /home/kodicw/.nix-profile/bin/antigravity
+      Icon=antigravity
+      Terminal=false
+      Type=Application
+      Categories=Development;
+    '';
   };
 
   home.sessionVariables = {
@@ -130,6 +156,22 @@
     XMODIFIERS = "@im=none";
   };
 
+  systemd.user.services.opencode-server = {
+    Unit = {
+      Description = "opencode: Headless opencode server";
+      After = [ "network-online.target" ];
+      Wants = [ "network-online.target" ];
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.opencode}/bin/opencode serve --port 8080 --hostname 127.0.0.1";
+      Restart = "on-failure";
+      RestartSec = "10s";
+    };
+  };
+
   systemd.user.services.rclone-gdrive = {
     Unit = {
       Description = "rclone: Remote FUSE filesystem for Google Drive";
@@ -142,7 +184,7 @@
     Service = {
       Type = "notify";
       ExecStartPre = "/usr/bin/mkdir -p %h/gdrive";
-      ExecStart = "${pkgs.rclone}/bin/rclone mount gdrive: %h/gdrive --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-cache-max-age 24h --dir-cache-time 1h";
+      ExecStart = "${pkgs.rclone}/bin/rclone mount gdrive: %h/gdrive --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-cache-max-age 24h --dir-cache-time 1h --allow-other";
       ExecStop = "/usr/bin/fusermount -u %h/gdrive";
       Restart = "on-failure";
       RestartSec = "10s";
@@ -206,4 +248,6 @@
       fi
     '';
   };
+
+  # Podman storage configuration on Google Drive
 }
