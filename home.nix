@@ -184,7 +184,7 @@
     Service = {
       Type = "notify";
       ExecStartPre = "/usr/bin/mkdir -p %h/gdrive";
-      ExecStart = "${pkgs.rclone}/bin/rclone mount gdrive: %h/gdrive --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-cache-max-age 24h --dir-cache-time 1h --allow-other";
+      ExecStart = "${pkgs.rclone}/bin/rclone mount gdrive: %h/gdrive --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-cache-max-age 24h --dir-cache-time 1h --allow-other --allow-non-empty --vfs-read-ahead 128M --vfs-read-chunk-size 64M";
       ExecStop = "/usr/bin/fusermount -u %h/gdrive";
       Restart = "on-failure";
       RestartSec = "10s";
