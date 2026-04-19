@@ -1,9 +1,14 @@
-{ config, pkgs, nixgl, polarbear, ... }:
+{
+  config,
+  pkgs,
+  nixgl,
+  polarbear,
+  ...
+}:
 
 {
   home.username = "kodicw";
   home.homeDirectory = "/home/kodicw";
-
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -29,13 +34,25 @@
     pkgs.rclone
     pkgs.quickemu
     pkgs.jq
-    pkgs.antigravity
     pkgs.mcp-nixos
+    pkgs.firefox
     nixgl.packages.x86_64-linux.nixGLIntel
     polarbear.packages.x86_64-linux.nixvim
   ];
 
   programs.gh.enable = true;
+
+  programs.ghostty = {
+    enable = true;
+    settings = {
+      background = "#000000";
+      background-opacity = 0.85;
+      window-decoration = false;
+      font-family = "JetBrainsMono Nerd Font";
+      font-size = 10;
+      # command = "${pkgs.nushell}/bin/nu";
+    };
+  };
 
   programs.opencode = {
     enable = true;
@@ -73,27 +90,6 @@
     enableNushellIntegration = true;
   };
 
-  programs.foot = {
-    enable = true;
-    settings = {
-      main = {
-        pad = "8x8";
-        selection-target = "both";
-      };
-      csd = {
-        size = 0;
-      };
-      security = {
-        osc52 = "enabled";
-      };
-      key-bindings = {
-        clipboard-copy = "Control+Shift+c XF86Copy";
-        clipboard-paste = "Control+Shift+v XF86Paste";
-        primary-paste = "Shift+Insert";
-      };
-    };
-  };
-
   programs.zellij = {
     enable = true;
     settings = {
@@ -119,30 +115,10 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".local/share/applications/foot.desktop".text = ''
-      [Desktop Entry]
-      Name=Foot
-      Comment=A fast, lightweight Wayland terminal
-      Exec=/home/kodicw/.nix-profile/bin/foot
-      Icon=foot
-      Terminal=false
-      Type=Application
-      Categories=System;TerminalEmulator;
-    '';
-    ".local/share/applications/antigravity.desktop".text = ''
-      [Desktop Entry]
-      Name=Antigravity
-      Comment=Agentic development platform
-      Exec=nixGLIntel /home/kodicw/.nix-profile/bin/antigravity
-      Icon=antigravity
-      Terminal=false
-      Type=Application
-      Categories=Development;
-    '';
   };
 
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
     XKB_DEFAULT_LAYOUT = "us";
     XKB_DEFAULT_MODEL = "pc105";
     XKB_DEFAULT_RULES = "evdev";
@@ -182,17 +158,46 @@
       WantedBy = [ "default.target" ];
     };
     Service = {
-      Type = "notify";
+      Type = "simple";
       ExecStartPre = "/usr/bin/mkdir -p %h/gdrive";
-      ExecStart = "${pkgs.rclone}/bin/rclone mount gdrive: %h/gdrive --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-cache-max-age 24h --dir-cache-time 1h --allow-other --allow-non-empty --vfs-read-ahead 128M --vfs-read-chunk-size 64M";
+      ExecStart = "${pkgs.rclone}/bin/rclone mount gdrive: %h/gdrive --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-read-chunk-size 128M --dir-cache-time 72h --buffer-size 128M --poll-interval 15s --allow-other --allow-non-empty";
       ExecStop = "/usr/bin/fusermount -u %h/gdrive";
       Restart = "on-failure";
       RestartSec = "10s";
+      RestartPreventExitStatus = "1";
     };
+  };
+
+  home.activation = {
+    syncCrostiniIcons = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+      # Sync applications and icons to paths Crostini Garcon expects
+      mkdir -p ~/.local/share/applications ~/.local/share/icons
+
+      # Link icons from nix profile
+      if [ -d ~/.nix-profile/share/icons ]; then
+        for i in ~/.nix-profile/share/icons/*; do
+          ln -sfn "$i" ~/.local/share/icons/$(basename "$i")
+        done
+      fi
+
+      # Link desktop files from nix profile
+      if [ -d ~/.nix-profile/share/applications ]; then
+        for f in ~/.nix-profile/share/applications/*.desktop; do
+          dest="$HOME/.local/share/applications/$(basename "$f")"
+          # Only symlink if it doesn't exist or is already a symlink
+          # This prevents overwriting manual files but cleans up old ones
+          if [ ! -e "$dest" ] || [ -L "$dest" ] || grep -q "nixGLIntel" "$dest"; then
+            ln -sfn "$f" "$dest"
+          fi
+        done
+      fi
+    '';
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  targets.genericLinux.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -200,14 +205,14 @@
     enable = true;
     settings = {
       logo = {
-        source = "windows";
+        source = "chromeos";
       };
       modules = [
         "title"
         "separator"
         {
           type = "os";
-          format = "Windows";
+          format = "chromeos";
         }
         "shell"
         "uptime"
