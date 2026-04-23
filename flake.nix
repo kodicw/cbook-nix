@@ -14,6 +14,10 @@
 
   outputs = { nixpkgs, home-manager, nixgl, polarbear, jbot, ... }:
     let
+      lib = import ./lib {
+        inherit nixpkgs home-manager nixgl polarbear jbot;
+      };
+
       sharedModules = [
         ./config/home.nix
         ./packages.nix
@@ -26,27 +30,10 @@
         ./activation/crostini-icons.nix
         jbot.homeManagerModules.ai-company
       ];
-
-      lib = nixpkgs.lib;
-
-      makeUser = username: home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
-        extraSpecialArgs = { inherit nixgl polarbear jbot; };
-        modules = sharedModules ++ [
-          {
-            _module.args = {
-              userModule = import ./config/users/${username}.nix;
-            };
-          }
-          ({ config, ... }: {
-            imports = [ config._module.args.userModule ];
-          })
-        ];
-      };
     in
     {
       homeConfigurations = {
-        kodicw = makeUser "kodicw";
+        kodicw = lib.makeUserConfig sharedModules "kodicw";
       };
     };
 }
