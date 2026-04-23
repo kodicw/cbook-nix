@@ -25,12 +25,12 @@
         ./programs/terminals.nix
         ./programs/devtools.nix
         ./session.nix
-        ./systemd/opencode-server.nix
-        ./systemd/rclone-gdrive.nix
-        ./activation/crostini-icons.nix
       ];
 
       kodicwExtraModules = [
+        ./systemd/opencode-server.nix
+        ./systemd/rclone-gdrive.nix
+        ./activation/crostini-icons.nix
         jbot.homeManagerModules.ai-company
       ];
     in
