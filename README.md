@@ -4,16 +4,34 @@ This repository contains the [Home Manager](https://github.com/nix-community/hom
 
 It uses Nix Flakes to provide a reproducible and declarative way to manage user-level packages, shell environments, and configuration files.
 
-## Key Features
+## Structure
+
+```
+home.nix                    # Main entry point
+├── config/home.nix          # Basic home config (username, stateVersion)
+├── packages.nix             # All Nix packages
+├── programs/
+│   ├── shells.nix           # Nushell, Bash, Starship, Carapace
+│   ├── terminals.nix        # Ghostty, Zellij
+│   └── devtools.nix         # Git, GitHub CLI, opencode, MCP, fastfetch
+├── session.nix              # Environment variables
+├── systemd/
+│   ├── opencode-server.nix  # opencode headless server
+│   └── rclone-gdrive.nix    # Google Drive FUSE mount
+└── activation/
+    └── crostini-icons.nix   # Crostini icon syncing
+```
+
+## Features
 - **Nix Flakes**: For dependency management and reproducible builds.
 - **Nushell**: Interactive shell with Starship prompt and Carapace completion.
 - **Zellij**: Terminal multiplexer for workspace management.
-- **Wayland Optimized**: Configuration for Foot and Ghostty terminals with Wayland-specific session variables.
+- **Wayland Optimized**: Configuration for Ghostty terminal with Wayland-specific session variables.
 - **Cloud Integration**: Automatic Google Drive mounting via `rclone` systemd service.
 
 ## Usage
 
-To apply the configuration to your environment:
+To apply the configuration:
 
 ```bash
 home-manager switch --flake .#kodicw
