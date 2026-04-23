@@ -28,12 +28,15 @@
         ./systemd/opencode-server.nix
         ./systemd/rclone-gdrive.nix
         ./activation/crostini-icons.nix
+      ];
+
+      kodicwExtraModules = [
         jbot.homeManagerModules.ai-company
       ];
     in
     {
       homeConfigurations = {
-        kodicw = lib.makeUserConfig sharedModules "kodicw";
+        kodicw = lib.makeUserConfig sharedModules "kodicw" kodicwExtraModules;
       };
     };
 }
