@@ -9,34 +9,48 @@
     };
     nixgl.url = "github:guibou/nixGL";
     polarbear.url = "github:kodicw/polarbear";
-    jbot.url = "path:/home/kodicw/code/jbot";
+    jbot.url = "github:kodicw/jbot";
   };
 
-  outputs = { nixpkgs, home-manager, nixgl, polarbear, jbot, ... }:
-    let
-      lib = import ./lib {
-        inherit nixpkgs home-manager nixgl polarbear jbot;
-      };
-
-      sharedModules = [
-        ./config/home.nix
-        ./packages.nix
-        ./programs/shells.nix
-        ./programs/terminals.nix
-        ./programs/devtools.nix
-        ./session.nix
-      ];
-
-      kodicwExtraModules = [
-        ./systemd/opencode-server.nix
-        ./systemd/rclone-gdrive.nix
-        ./activation/crostini-icons.nix
-        jbot.homeManagerModules.ai-company
-      ];
-    in
-    {
-      homeConfigurations = {
-        kodicw = lib.makeUserConfig sharedModules "kodicw" kodicwExtraModules;
+  outputs = { self, nixpkgs, home-manager, nixgl, polarbear, jbot, ... }: {
+    homeManagerModules = {
+      activation-crostini-icons = ./activation/crostini-icons.nix;
+      config-home = ./config/home.nix;
+      packages = ./packages.nix;
+      programs-csharp = ./programs/csharp.nix;
+      programs-devtools = ./programs/devtools.nix;
+      programs-shells = ./programs/shells.nix;
+      programs-terminals = ./programs/terminals.nix;
+      session = ./session.nix;
+      systemd-opencode-server = ./systemd/opencode-server.nix;
+      
+      # Combined default module for convenience
+      default = { ... }: {
+        imports = [
+          self.homeManagerModules.activation-crostini-icons
+          self.homeManagerModules.config-home
+          self.homeManagerModules.packages
+          self.homeManagerModules.programs-csharp
+          self.homeManagerModules.programs-devtools
+          self.homeManagerModules.programs-shells
+          self.homeManagerModules.programs-terminals
+          self.homeManagerModules.session
+          self.homeManagerModules.systemd-opencode-server
+          jbot.homeManagerModules.default
+          jbot.homeManagerModules.ai-company
+        ];
       };
     };
+
+    homeConfigurations.kodicw = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      extraSpecialArgs = {
+        inherit nixgl polarbear jbot;
+        userModule = import ./config/users/kodicw.nix;
+      };
+      modules = [
+        self.homeManagerModules.default
+      ];
+    };
+  };
 }

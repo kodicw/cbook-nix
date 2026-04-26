@@ -1,4 +1,9 @@
-{ pkgs, nixgl, polarbear, ... }:
+{
+  pkgs,
+  nixgl,
+  polarbear,
+  ...
+}:
 
 {
   home.packages = [
@@ -9,18 +14,24 @@
     pkgs.openssh
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.fira-code
-    pkgs.gemini-cli
-    pkgs.claude-code
-    pkgs.opencode
     pkgs.wl-clipboard
     pkgs.fastfetch
     pkgs.rclone
-    pkgs.quickemu
     pkgs.jq
     pkgs.mcp-nixos
     pkgs.firefox
+    pkgs.claude-code
+    pkgs.gemini-cli
+    pkgs.opencode
     nixgl.packages.x86_64-linux.nixGLIntel
     polarbear.packages.x86_64-linux.nixvim
+    polarbear.packages.x86_64-linux.dev-android
+    polarbear.packages.x86_64-linux.dev-tools
+    polarbear.packages.x86_64-linux.tools-net
+    polarbear.packages.x86_64-linux.tools-nix
+    polarbear.packages.x86_64-linux.tools-red
+    polarbear.packages.x86_64-linux.tools-sre
+    polarbear.packages.x86_64-linux.tools-ssh
     pkgs.nb
   ];
 }
