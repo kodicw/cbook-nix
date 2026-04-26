@@ -10,9 +10,10 @@
     nixgl.url = "github:guibou/nixGL";
     polarbear.url = "github:kodicw/polarbear";
     jbot.url = "github:kodicw/jbot";
+    bifrost.url = "path:/home/kodicw/code/bifrost";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixgl, polarbear, jbot, ... }: {
+  outputs = { self, nixpkgs, home-manager, nixgl, polarbear, jbot, bifrost, ... }: {
     homeManagerModules = {
       activation-crostini-icons = ./activation/crostini-icons.nix;
       config-home = ./config/home.nix;
@@ -38,6 +39,7 @@
           self.homeManagerModules.systemd-opencode-server
           jbot.homeManagerModules.default
           jbot.homeManagerModules.ai-company
+          bifrost.homeManagerModules.default
         ];
       };
     };
