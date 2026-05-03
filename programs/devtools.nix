@@ -2,7 +2,7 @@
 
 {
   programs.git = {
-    enable = true;
+    enable = false;
     settings = {
       user = {
         name = "Kodi Walls";

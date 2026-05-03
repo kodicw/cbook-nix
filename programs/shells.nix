@@ -20,6 +20,28 @@
     '';
   };
 
+  programs.television = {
+    enable = true;
+    enableNushellIntegration = true;
+    channels = {
+      files = {
+        metadata = {
+          name = "files";
+        };
+        source = {
+          command = "fd --type f";
+        };
+        keybindings = {
+          enter = "actions:open-nvim";
+        };
+        "actions.open-nvim" = {
+          command = "nvim {}";
+          mode = "execute";
+        };
+      };
+    };
+  };
+
   programs.bash = {
     enable = true;
     shellAliases = {
@@ -35,6 +57,12 @@
   programs.starship = {
     enable = true;
     enableNushellIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableNushellIntegration = true;
+
   };
 
   programs.carapace = {

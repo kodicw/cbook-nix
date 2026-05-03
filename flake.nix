@@ -9,11 +9,11 @@
     };
     nixgl.url = "github:guibou/nixGL";
     polarbear.url = "github:kodicw/polarbear";
-    jbot.url = "github:kodicw/jbot";
+    nixspirit.url = "github:kodicw/nixspirit";
     bifrost.url = "path:/home/kodicw/code/bifrost";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixgl, polarbear, jbot, bifrost, ... }: {
+  outputs = { self, nixpkgs, home-manager, nixgl, polarbear, nixspirit, bifrost, ... }: {
     homeManagerModules = {
       activation-crostini-icons = ./activation/crostini-icons.nix;
       config-home = ./config/home.nix;
@@ -37,8 +37,8 @@
           self.homeManagerModules.programs-terminals
           self.homeManagerModules.session
           self.homeManagerModules.systemd-opencode-server
-          jbot.homeManagerModules.default
-          jbot.homeManagerModules.ai-company
+          nixspirit.homeManagerModules.default
+          nixspirit.homeManagerModules.ai-company
           bifrost.homeManagerModules.default
         ];
       };
@@ -47,7 +47,7 @@
     homeConfigurations.kodicw = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       extraSpecialArgs = {
-        inherit nixgl polarbear jbot;
+        inherit nixgl polarbear nixspirit;
         userModule = import ./config/users/kodicw.nix;
       };
       modules = [

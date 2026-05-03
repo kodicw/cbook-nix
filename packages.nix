@@ -6,32 +6,27 @@
 }:
 
 {
-  home.packages = [
-    pkgs.just
-    pkgs.deadnix
-    pkgs.ripgrep
-    pkgs.ghostty
-    pkgs.openssh
-    pkgs.nerd-fonts.jetbrains-mono
-    pkgs.nerd-fonts.fira-code
-    pkgs.wl-clipboard
-    pkgs.fastfetch
-    pkgs.rclone
-    pkgs.jq
-    pkgs.mcp-nixos
-    pkgs.firefox
-    pkgs.claude-code
-    pkgs.gemini-cli
-    pkgs.opencode
+  home.packages = with pkgs; [
+    fd
+    ghostty
+    openssh
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    wl-clipboard
+    fastfetch
+    rclone
+    mcp-nixos
+    firefox
+    claude-code
+    opencode
     nixgl.packages.x86_64-linux.nixGLIntel
     polarbear.packages.x86_64-linux.nixvim
-    polarbear.packages.x86_64-linux.dev-android
     polarbear.packages.x86_64-linux.dev-tools
     polarbear.packages.x86_64-linux.tools-net
     polarbear.packages.x86_64-linux.tools-nix
     polarbear.packages.x86_64-linux.tools-red
     polarbear.packages.x86_64-linux.tools-sre
     polarbear.packages.x86_64-linux.tools-ssh
-    pkgs.nb
+    nb
   ];
 }

@@ -3,7 +3,6 @@
 {
   home.packages = [
     pkgs.dotnet-sdk_8
-    pkgs.dotnet-runtime_8
     pkgs.omnisharp-roslyn
     pkgs.netcoredbg # Debugger for C#
   ];
