@@ -3,12 +3,12 @@
     "bifrost": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs",
-        "nixspirit": "nixspirit"
+        "jbot": "jbot",
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1777777572,
-        "narHash": "sha256-l7LosCAmeWMWPJy9+W3jgjgwcwxT+j4ThnjJIJfk84o=",
+        "lastModified": 1777826072,
+        "narHash": "sha256-BTYpVJu5DOpgJyGzKozVoohCvdq8Mdb1lPsn54nmvTA=",
         "path": "/home/kodicw/code/bifrost",
         "type": "path"
       },
@@ -149,7 +149,7 @@
       "inputs": {
         "nixpkgs": [
           "bifrost",
-          "nixspirit",
+          "jbot",
           "nixpkgs"
         ]
       },
@@ -174,11 +174,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777771152,
-        "narHash": "sha256-+J0PGlJpLvo1ukmHM0ksI8PtBDwMCYyh87rbs86F0/c=",
+        "lastModified": 1777815398,
+        "narHash": "sha256-MrIhEoqXc4YsHEUfH4rDU/K09XnWcKntNhCjs7n7zi8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9c9fc9368a6d9e698d03d3780d3b930ebc060334",
+        "rev": "b5e86c1b19f178a8ee10f7cb747325e02e3d3991",
         "type": "github"
       },
       "original": {
@@ -205,6 +205,26 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "jbot": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1777825934,
+        "narHash": "sha256-riXeG+p/4Vps6RHw8SwG8E9rW0XVt7rldp4icy/8h6k=",
+        "owner": "kodicw",
+        "repo": "jbot",
+        "rev": "dfc9258a60781751896c46eafbc56978cb11f487",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kodicw",
+        "repo": "jbot",
         "type": "github"
       }
     },
@@ -347,36 +367,16 @@
     },
     "nixspirit": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
-        "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1777777495,
-        "narHash": "sha256-zec+KtheiKHyC6nd3kMji1HfBFmU5Oho8Xx1gO/h+3Y=",
-        "owner": "kodicw",
-        "repo": "nixspirit",
-        "rev": "15d83599c85b57786e75d6d01803dbbb7c350bea",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kodicw",
-        "repo": "nixspirit",
-        "type": "github"
-      }
-    },
-    "nixspirit_2": {
-      "inputs": {
         "flake-utils": "flake-utils_4",
         "home-manager": "home-manager_3",
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1777778356,
-        "narHash": "sha256-aEV/40E/jwvz9sC7ACCttTkIgAWrWIxjNJLi4t01boY=",
+        "lastModified": 1777826093,
+        "narHash": "sha256-bBVvD4GoksXIeXuPRvb3U/kOz6Em6HlF2qsan6sNOzk=",
         "owner": "kodicw",
         "repo": "nixspirit",
-        "rev": "0858d99cf0e3d00a5e6adad1bbcc9cc3e57a9c33",
+        "rev": "d3ea5c5dfc8d458c07f872f5943eb900a6b0f0bb",
         "type": "github"
       },
       "original": {
@@ -434,7 +434,7 @@
         "home-manager": "home-manager_2",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_4",
-        "nixspirit": "nixspirit_2",
+        "nixspirit": "nixspirit",
         "polarbear": "polarbear"
       }
     },
