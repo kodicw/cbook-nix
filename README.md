@@ -1,4 +1,4 @@
-# cbook-nix
+# abode
 
 This repository contains the [Home Manager](https://github.com/nix-community/home-manager) configuration for my ChromeOS environment (Crostini/Linux development environment).
 

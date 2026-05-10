@@ -1,6 +1,6 @@
-# Project Overview: cbook-nix
+# Project Overview: abode
 
-`cbook-nix` is a Nix Flake-based [Home Manager](https://github.com/nix-community/home-manager) configuration tailored for the user `kodicw`. It manages user-level packages, shell environments, terminal settings, and background services in a reproducible manner.
+`abode` is a Nix Flake-based [Home Manager](https://github.com/nix-community/home-manager) configuration tailored for the user `kodicw`. It manages user-level packages, shell environments, terminal settings, and background services in a reproducible manner.
 
 ## Main Technologies & Architecture
 - **Nix Flakes**: Used for dependency management and reproducible builds.
