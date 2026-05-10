@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  isAarch64 = pkgs.system == "aarch64-linux";
+in
 {
   programs.git = {
     enable = false;
@@ -31,14 +34,14 @@
     enable = true;
     settings = {
       logo = {
-        source = "chromeos";
+        source = if isAarch64 then "android" else "chromeos";
       };
       modules = [
         "title"
         "separator"
         {
           type = "os";
-          format = "chromeos";
+          format = if isAarch64 then "android" else "chromeos";
         }
         "shell"
         "uptime"

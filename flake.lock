@@ -7,8 +7,8 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1777826072,
-        "narHash": "sha256-BTYpVJu5DOpgJyGzKozVoohCvdq8Mdb1lPsn54nmvTA=",
+        "lastModified": 1777839978,
+        "narHash": "sha256-bRsZKpVo3WRqBSD25PHWfS13XMKaomaiFprLFmU7xr8=",
         "path": "/home/kodicw/code/bifrost",
         "type": "path"
       },
@@ -215,11 +215,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1777825934,
-        "narHash": "sha256-riXeG+p/4Vps6RHw8SwG8E9rW0XVt7rldp4icy/8h6k=",
+        "lastModified": 1777826093,
+        "narHash": "sha256-bBVvD4GoksXIeXuPRvb3U/kOz6Em6HlF2qsan6sNOzk=",
         "owner": "kodicw",
         "repo": "jbot",
-        "rev": "dfc9258a60781751896c46eafbc56978cb11f487",
+        "rev": "d3ea5c5dfc8d458c07f872f5943eb900a6b0f0bb",
         "type": "github"
       },
       "original": {
@@ -372,17 +372,14 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1777826093,
-        "narHash": "sha256-bBVvD4GoksXIeXuPRvb3U/kOz6Em6HlF2qsan6sNOzk=",
-        "owner": "kodicw",
-        "repo": "nixspirit",
-        "rev": "d3ea5c5dfc8d458c07f872f5943eb900a6b0f0bb",
-        "type": "github"
+        "lastModified": 1778379652,
+        "narHash": "sha256-ZgNu+d+QRbM3ehRA0rksTJRfCAMaV14x4JO6CKnHwiI=",
+        "path": "/home/kodicw/code/nixspirit",
+        "type": "path"
       },
       "original": {
-        "owner": "kodicw",
-        "repo": "nixspirit",
-        "type": "github"
+        "path": "/home/kodicw/code/nixspirit",
+        "type": "path"
       }
     },
     "nixvim": {

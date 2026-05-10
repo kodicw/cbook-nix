@@ -1,8 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
+let
+  isAarch64 = pkgs.system == "aarch64-linux";
+in
 {
   programs.ghostty = {
-    enable = true;
+    enable = !isAarch64;
     settings = {
       background = "#000000";
       background-opacity = 0.85;

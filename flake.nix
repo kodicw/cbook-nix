@@ -9,7 +9,7 @@
     };
     nixgl.url = "github:guibou/nixGL";
     polarbear.url = "github:kodicw/polarbear";
-    nixspirit.url = "github:kodicw/nixspirit";
+    nixspirit.url = "path:/home/kodicw/code/nixspirit";
     bifrost.url = "path:/home/kodicw/code/bifrost";
   };
 
@@ -49,6 +49,17 @@
       extraSpecialArgs = {
         inherit nixgl polarbear nixspirit;
         userModule = import ./config/users/kodicw.nix;
+      };
+      modules = [
+        self.homeManagerModules.default
+      ];
+    };
+
+    homeConfigurations.droid = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.aarch64-linux;
+      extraSpecialArgs = {
+        inherit nixgl polarbear nixspirit;
+        userModule = import ./config/users/droid.nix;
       };
       modules = [
         self.homeManagerModules.default
