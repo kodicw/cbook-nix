@@ -57,9 +57,9 @@
         };
         modules = [
           self.homeManagerModules.default
-          (import /home/kodicw/code/nixspirit).homeManagerModules.default
-          (import /home/kodicw/code/nixspirit).homeManagerModules.ai-company
-          (import /home/kodicw/code/bifrost).homeManagerModules.default
+          # (import /home/kodicw/code/nixspirit).homeManagerModules.default
+          # (import /home/kodicw/code/nixspirit).homeManagerModules.ai-company
+          # (import /home/kodicw/code/bifrost).homeManagerModules.default
         ];
       };
 
