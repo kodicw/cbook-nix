@@ -10,6 +10,7 @@ in
       background = "#000000";
       background-opacity = 0.85;
       window-decoration = false;
+      gtk-titlebar = false;
       font-family = "JetBrainsMono Nerd Font";
       font-size = 10;
     };
@@ -19,9 +20,9 @@ in
     enable = true;
     settings = {
       pane_frames = false;
-      theme = "default";
+      theme = "catppuccin-mocha";
       show_startup_tips = false;
-      default_layout = "default";
+      default_layout = "compact";
     };
   };
 

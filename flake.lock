@@ -372,8 +372,8 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1778380697,
-        "narHash": "sha256-h7PAKXp4tmUJu+FPgx8OlN5awVaaWRf6P6k0Y4tJBG0=",
+        "lastModified": 1778430087,
+        "narHash": "sha256-u5aPvQFuEDbeRqCBTDy93hVNFAGzN8WRPPeM9v9bd68=",
         "path": "/home/kodicw/code/nixspirit",
         "type": "path"
       },

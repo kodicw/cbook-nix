@@ -3,6 +3,11 @@
 {
   programs.nushell = {
     enable = true;
+    shellAliases = {
+      "cd" = "z";
+      "cat" = "bat";
+      "grep" = "rg";
+    };
     configFile.text = ''
       $env.config = {
         show_banner: false
@@ -18,6 +23,17 @@
           fastfetch
       }
     '';
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableNushellIntegration = true;
   };
 
   programs.television = {
