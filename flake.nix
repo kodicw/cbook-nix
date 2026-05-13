@@ -39,7 +39,6 @@
               self.homeManagerModules.activation-crostini-icons
               self.homeManagerModules.config-home
               self.homeManagerModules.packages
-              self.homeManagerModules.programs-csharp
               self.homeManagerModules.programs-devtools
               self.homeManagerModules.programs-shells
               self.homeManagerModules.programs-terminals
@@ -79,6 +78,28 @@
         extraSpecialArgs = {
           inherit polarbear;
           userModule = import ./config/users/droid.nix;
+        };
+        modules = [
+          self.homeManagerModules.default
+        ];
+      };
+
+      homeConfigurations.nixos = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit polarbear;
+          userModule = import ./config/users/nixos.nix;
+        };
+        modules = [
+          self.homeManagerModules.default
+        ];
+      };
+
+      homeConfigurations.kodiwalls = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit polarbear;
+          userModule = import ./config/users/kodiwalls.nix;
         };
         modules = [
           self.homeManagerModules.default

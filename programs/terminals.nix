@@ -23,6 +23,11 @@ in
       theme = "catppuccin-mocha";
       show_startup_tips = false;
       default_layout = "compact";
+      keybinds = {
+        normal = {
+          "bind \"Alt t\"" = { NewTab = { }; };
+        };
+      };
     };
   };
 

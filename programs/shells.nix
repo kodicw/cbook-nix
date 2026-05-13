@@ -73,6 +73,13 @@
   programs.starship = {
     enable = true;
     enableNushellIntegration = true;
+    settings = {
+      format = ''
+        [╭╴](238)$os$username$hostname$directory$git_branch$git_status$git_commit$rust$python$dotnet$kotlin$java$all $battery
+        [╰─](238)$character '';
+
+      add_newline = true;
+    };
   };
 
   programs.zoxide = {

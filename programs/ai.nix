@@ -21,7 +21,10 @@
         };
         filesystem = {
           type = "local";
-          command = [ "${pkgs.mcp-server-filesystem}/bin/mcp-server-filesystem" "/home/charles/code" ];
+          command = [
+            "${pkgs.mcp-server-filesystem}/bin/mcp-server-filesystem"
+            "/home/charles/code"
+          ];
           enabled = true;
         };
         git = {
@@ -45,7 +48,7 @@
       theme = "catppuccin-mocha";
     };
     web = {
-      enable = true;
+      enable = false;
       extraArgs = [
         "--hostname"
         "100.92.94.4"

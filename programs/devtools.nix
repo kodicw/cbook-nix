@@ -1,8 +1,5 @@
 { pkgs, ... }:
 
-let
-  isAarch64 = pkgs.system == "aarch64-linux";
-in
 {
   programs.git = {
     enable = false;
@@ -33,16 +30,10 @@ in
   programs.fastfetch = {
     enable = true;
     settings = {
-      logo = {
-        source = if isAarch64 then "android" else "chromeos";
-      };
       modules = [
         "title"
         "separator"
-        {
-          type = "os";
-          format = if isAarch64 then "android" else "chromeos";
-        }
+        "os"
         "shell"
         "uptime"
         "memory"
