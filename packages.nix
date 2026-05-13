@@ -1,6 +1,5 @@
 {
   pkgs,
-  nixgl,
   polarbear,
   ...
 }:
@@ -17,7 +16,6 @@ in
       bat
       ripgrep
       speedtest-rs
-      cargo
       rustup
       gcc
       nodejs
@@ -26,6 +24,7 @@ in
       rclone
       mcp-nixos
       claude-code
+      ollama
       opencode
       gemini-cli
       nb
