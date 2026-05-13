@@ -161,11 +161,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1778562241,
-        "narHash": "sha256-37tKlFA5yiM+IejHpQF08eG2f6c8MTAx60gptEiQnQM=",
+        "lastModified": 1778648705,
+        "narHash": "sha256-xcuLSCazu5TqnglIr88Funbx90pk/MGpee+1e9gGMsM=",
         "owner": "kodicw",
         "repo": "polarbear",
-        "rev": "846e04a829d1cdad74a1581d2bd8b4dc96d52954",
+        "rev": "c9167353b76e4cff47ce80dc72ebfdb47efb8b23",
         "type": "github"
       },
       "original": {
