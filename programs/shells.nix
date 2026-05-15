@@ -25,6 +25,19 @@
     '';
   };
 
+  home.file.".xonshrc".text = ''
+    $UPDATE_OS_ENVIRON = True
+    $XONSH_SHOW_DOT_CHAR = True
+
+    aliases['ls'] = 'eza'
+    aliases['cat'] = 'bat'
+
+    execx($(starship init xonsh))
+    execx($(zoxide init xonsh))
+    execx($(carapace _carapace xonsh))
+    execx($(atuin init xonsh))
+  '';
+
   programs.atuin = {
     enable = true;
     enableNushellIntegration = true;
@@ -62,10 +75,12 @@
     enable = true;
     shellAliases = {
       nvim = "VIMINIT='set keyprotocol= | let &term=&term' nvim";
+      ls = "eza";
+      cat = "bat";
     };
     initExtra = ''
-      if [[ $- == *i* ]] && [[ $(ps -p $PPID -o comm=) != "nu" ]] && command -v nu >/dev/null; then
-        exec nu
+      if [[ $- == *i* ]] && [[ $(ps -p $PPID -o comm=) != "xonsh" ]] && command -v xonsh >/dev/null; then
+        exec xonsh
       fi
     '';
   };

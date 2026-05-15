@@ -11,7 +11,7 @@ home.nix                    # Main entry point
 ├── config/home.nix          # Basic home config (username, stateVersion)
 ├── packages.nix             # All Nix packages
 ├── programs/
-│   ├── shells.nix           # Nushell, Bash, Starship, Carapace
+│   ├── shells.nix           # Xonsh, Nushell, Bash, Starship, Carapace
 │   ├── terminals.nix        # Ghostty, Zellij
 │   └── devtools.nix         # Git, GitHub CLI, opencode, MCP, fastfetch
 ├── session.nix              # Environment variables
@@ -24,7 +24,8 @@ home.nix                    # Main entry point
 
 ## Features
 - **Nix Flakes**: For dependency management and reproducible builds.
-- **Nushell**: Interactive shell with Starship prompt and Carapace completion.
+- **Xonsh**: Primary interactive shell with Starship prompt and Carapace completion.
+- **Nushell**: Alternative shell available for use.
 - **Zellij**: Terminal multiplexer for workspace management.
 - **Wayland Optimized**: Configuration for Ghostty terminal with Wayland-specific session variables.
 - **Cloud Integration**: Automatic Google Drive mounting via `rclone` systemd service.

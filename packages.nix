@@ -14,6 +14,7 @@ in
     [
       fd
       bat
+      eza
       ripgrep
       speedtest-rs
       rustup
@@ -28,6 +29,7 @@ in
       opencode
       gemini-cli
       nb
+      xonsh
       polarbear.packages.${system}.nixvim
       polarbear.packages.${system}.tools-ssh
     ]
