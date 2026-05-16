@@ -80,6 +80,7 @@
       nvim = "VIMINIT='set keyprotocol= | let &term=&term' nvim";
       ls = "eza";
       cat = "bat";
+      cd = "z";
     };
     initExtra = ''
       if [[ $- == *i* ]] && [[ $(ps -p $PPID -o comm=) != "xonsh" ]] && command -v xonsh >/dev/null; then
