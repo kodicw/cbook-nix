@@ -41,17 +41,20 @@
   programs.atuin = {
     enable = true;
     enableNushellIntegration = true;
+    enableBashIntegration = true;
   };
 
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
     enableNushellIntegration = true;
+    enableBashIntegration = true;
   };
 
   programs.television = {
     enable = true;
     enableNushellIntegration = true;
+    enableBashIntegration = true;
     channels = {
       files = {
         metadata = {
@@ -88,6 +91,7 @@
   programs.starship = {
     enable = true;
     enableNushellIntegration = true;
+    enableBashIntegration = true;
     settings = {
       format = ''
         [╭╴](238)$os$username$hostname$directory$git_branch$git_status$git_commit$rust$python$dotnet$kotlin$java$all $battery
@@ -100,11 +104,13 @@
   programs.zoxide = {
     enable = true;
     enableNushellIntegration = true;
+    enableBashIntegration = true;
 
   };
 
   programs.carapace = {
     enable = true;
     enableNushellIntegration = true;
+    enableBashIntegration = true;
   };
 }
